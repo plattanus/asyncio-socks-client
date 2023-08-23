@@ -4,7 +4,6 @@ import socks_client.udp_sync as socks
 
 
 def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message):
-    # 创建一个 SOCKS5 代理连接
     socks.setdefaultproxy(
         socks.SOCKS5,
         proxy_host,
@@ -13,26 +12,20 @@ def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, m
         username="my_username",
         password="my_password",
     )
-    # socks.setdefaultproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=True, username='my_username', password='my_password')
-
     socket.socket = socks.socksocket
-
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     udp_socket.settimeout(5)
     udp_socket.sendto(message.encode(), (target_host, target_port))
-
     response, server_address = udp_socket.recvfrom(1024)
-
     print("Response from server:", response.decode())
-
     udp_socket.close()
 
 
 if __name__ == "__main__":
-    proxy_host = "10.233.7.205"
+    proxy_host = ""
     proxy_port = 1080
-    target_host = "10.233.7.205"
+    target_host = ""
     target_port = 6000
-    message = "Hello, server!"
+    message = "A"
 
     udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message)

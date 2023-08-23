@@ -1,7 +1,5 @@
 # socks-client
 
-
-
 The `socks-client` package provides a core proxy client functionality for Python. Supports SOCKS4 proxy and SOCKS5 proxy and provides sync and async APIs. You probably don't need to use `socks-client` directly.
 
 ## Features
@@ -24,14 +22,27 @@ pip install socks-client
 
 ```
 import socks_client.tcp_async as socks
-async def main():
-    tcp_socks = socks.socksocket(proxy_type=socks.SOCKS5, proxy_host="10.233.7.205", proxy_port=1080, username="my_username", password="my_password", rdns=False)
-    await tcp_socks.settimeout(5)
-    sock = await tcp_socks.connect(dest_host="ip.sb", dest_port=80)
-    reader, writer = await asyncio.open_connection(host=None, port=None, sock=sock)
-    request = (b"GET / HTTP/1.1\r\n" b"Host: ip.sb\r\n" b"User-Agent: curl/7.64.0\r\n\r\n")
-    writer.write(request)
-    response = await asyncio.wait_for(reader.read(1024), timeout=1)
+async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
+    tcp_socks = socks.socksocket(
+        proxy_type=socks.SOCKS5,
+        proxy_host=proxy_host,
+        proxy_port=proxy_port,
+        username="my_username",
+        password="my_password",
+        rdns=False,
+    )
+    await tcp_socks.settimeout(5)
+    sock = await tcp_socks.connect(dest_host=target_host, dest_port=target_port)
+    reader, writer = await asyncio.open_connection(
+        host=None,
+        port=None,
+        sock=sock,
+    )
+    request = (
+        b"GET / HTTP/1.1\r\n" b"Host: " + target_host + "\r\n" b"User-Agent: curl/7.64.0\r\n\r\n"
+    )
+    writer.write(request)
+    response = await asyncio.wait_for(reader.read(1024), timeout=1)
 ```
 
 **Sync TCP Client**

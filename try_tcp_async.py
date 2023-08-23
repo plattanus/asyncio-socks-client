@@ -4,17 +4,17 @@ import re
 import socks_client.tcp_async as socks
 
 
-async def main():
+async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
     tcp_socks = socks.socksocket(
         proxy_type=socks.SOCKS5,
-        proxy_host="10.233.7.205",
-        proxy_port=1080,
+        proxy_host=proxy_host,
+        proxy_port=proxy_port,
         username="my_username",
         password="my_password",
         rdns=False,
     )
     await tcp_socks.settimeout(5)
-    sock = await tcp_socks.connect(dest_host="ip.sb", dest_port=80)
+    sock = await tcp_socks.connect(dest_host=target_host, dest_port=target_port)
 
     reader, writer = await asyncio.open_connection(
         host=None,
@@ -35,4 +35,14 @@ async def main():
     print(ip_address)
 
 
-asyncio.run(main())
+async def main():
+    proxy_host = ""
+    proxy_port = 1080
+    target_host = "ip.sb"
+    target_port = 80
+
+    await tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
