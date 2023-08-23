@@ -10,7 +10,7 @@ base_path = os.path.dirname(__file__)
 with open(os.path.join(base_path, 'README.md')) as f:
     long_description = f.read()
 
-with open(os.path.join(base_path, 'asyncio_socks_client/__version__.py')) as f:
+with open(os.path.join(base_path, 'socks_client/__version__.py')) as f:
     try:
         VERSION = re.findall(r"^__version__ = '([^']+)'\r?$", f.read(), re.M)[0]
     except:
