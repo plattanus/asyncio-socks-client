@@ -1,7 +1,7 @@
 import asyncio
 import re
 
-import asyncio_socks_client.tcp_async as socks
+import socks_client.tcp_async as socks
 
 
 async def main():

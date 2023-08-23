@@ -1,7 +1,7 @@
 import asyncio
 import socket
 
-import asyncio_socks_client.udp_async as socks
+import socks_client.udp_async as socks
 
 
 async def udp_client_through_socks(

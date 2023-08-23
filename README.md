@@ -23,6 +23,7 @@ pip install socks-client
 **Async TCP Client**
 
 ```
+import socks_client.tcp_async as socks
 async def main():
     tcp_socks = socks.socksocket(proxy_type=socks.SOCKS5, proxy_host="10.233.7.205", proxy_port=1080, username="my_username", password="my_password", rdns=False)
     await tcp_socks.settimeout(5)
@@ -36,6 +37,7 @@ async def main():
 **Sync TCP Client**
 
 ```
+import socks_client.tcp_sync as socks
 def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
     tcp_socks = socks.socksocket()
     tcp_socks.setproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=False, username="my_username", password="my_password")
@@ -49,6 +51,7 @@ def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
 **Async UDP Client**
 
 ```
+import socks_client.udp_async as socks
 async def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message):
     await socks.setdefaultproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=True, username="my_username", password="my_password")
     socket.socket = socks.socksocket
@@ -61,6 +64,7 @@ async def udp_client_through_socks(proxy_host, proxy_port, target_host, target_p
 **Sync UDP Client**
 
 ```
+import socks_client.udp_sync as socks
 def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message):
     socks.setdefaultproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=False, username="my_username", password="my_password")
     socket.socket = socks.socksocket

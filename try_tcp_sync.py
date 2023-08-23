@@ -1,6 +1,6 @@
 import re
 
-import asyncio_socks_client.tcp_sync as socks
+import socks_client.tcp_sync as socks
 
 
 def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):

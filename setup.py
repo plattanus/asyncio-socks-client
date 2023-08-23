@@ -33,14 +33,14 @@ setup(
     install_requires=[],
     python_requires=">=3.7",
     packages=[
-        '__init__',
-        '__version__'
-        '_errors',
-        '_type',
-        'tcp_async',
-        'tcp_sync',
-        'udp_async',
-        'udp_sync',
+        'socks_client.__init__',
+        'socks_client.__version__'
+        'socks_client._errors',
+        'socks_client._type',
+        'socks_client.tcp_async',
+        'socks_client.tcp_sync',
+        'socks_client.udp_async',
+        'socks_client.udp_sync',
     ]
 )
 
