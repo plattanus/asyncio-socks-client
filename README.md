@@ -33,13 +33,14 @@ async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_p
     )
     await tcp_socks.settimeout(5)
     sock = await tcp_socks.connect(dest_host=target_host, dest_port=target_port)
+
     reader, writer = await asyncio.open_connection(
         host=None,
         port=None,
         sock=sock,
     )
     request = (
-        b"GET / HTTP/1.1\r\n" b"Host: " + target_host + "\r\n" b"User-Agent: curl/7.64.0\r\n\r\n"
+        b"GET / HTTP/1.1\r\n" b"Host: ip.sb\r\n" b"User-Agent: curl/7.64.0\r\n\r\n"
     )
     writer.write(request)
     response = await asyncio.wait_for(reader.read(1024), timeout=1)
@@ -50,26 +51,44 @@ async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_p
 ```
 import socks_client.tcp_sync as socks
 def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
-    tcp_socks = socks.socksocket()
-    tcp_socks.setproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=False, username="my_username", password="my_password")
-    tcp_socks.settimeout(5)
-    tcp_socks.connect_ex((target_host, target_port))
-    request = b"GET / HTTP/1.1\r\nHost: ip.sb\r\nUser-Agent: curl/7.64.0\r\n\r\n"
-    tcp_socks.send(request)
-    response_headers = tcp_socks.recv(4096).decode()
+    tcp_socks = socks.socksocket()
+    tcp_socks.setproxy(
+        socks.SOCKS5,
+        proxy_host,
+        proxy_port,
+        rdns=False,
+        username="my_username",
+        password="my_password",
+    )
+    tcp_socks.settimeout(5)
+    tcp_socks.connect_ex((target_host, target_port))
+    request = (
+        b"GET / HTTP/1.1\r\n" b"Host: ip.sb\r\n" b"User-Agent: curl/7.64.0\r\n\r\n"
+    )
+    tcp_socks.send(request)
+    response_headers = tcp_socks.recv(4096).decode()
 ```
 
 **Async UDP Client**
 
 ```
 import socks_client.udp_async as socks
-async def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message):
-    await socks.setdefaultproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=True, username="my_username", password="my_password")
-    socket.socket = socks.socksocket
-    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    await udp_socket.settimeout(5)
-    await udp_socket.sendto(message.encode(), (target_host, target_port))
-    response, server_address = await udp_socket.recvfrom(1024)
+async def udp_client_through_socks(
+    proxy_host, proxy_port, target_host, target_port, message
+):
+    await socks.setdefaultproxy(
+        socks.SOCKS5,
+        proxy_host,
+        proxy_port,
+        rdns=True,
+        username="my_username",
+        password="my_password",
+    )
+    socket.socket = socks.socksocket
+    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    await udp_socket.settimeout(5)
+    await udp_socket.sendto(message.encode(), (target_host, target_port))
+    response, server_address = await udp_socket.recvfrom(1024)
 ```
 
 **Sync UDP Client**
@@ -77,12 +96,20 @@ async def udp_client_through_socks(proxy_host, proxy_port, target_host, target_p
 ```
 import socks_client.udp_sync as socks
 def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message):
-    socks.setdefaultproxy(socks.SOCKS5, proxy_host, proxy_port, rdns=False, username="my_username", password="my_password")
-    socket.socket = socks.socksocket
-    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    udp_socket.settimeout(5)
-    udp_socket.sendto(message.encode(), (target_host, target_port))
-    response, server_address = udp_socket.recvfrom(1024)
+    socks.setdefaultproxy(
+        socks.SOCKS5,
+        proxy_host,
+        proxy_port,
+        rdns=False,
+        username="my_username",
+        password="my_password",
+    )
+    socket.socket = socks.socksocket
+    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    udp_socket.settimeout(5)
+    udp_socket.sendto(message.encode(), (target_host, target_port))
+    response, server_address = udp_socket.recvfrom(1024)
+    print("Response from server:", response.decode())
 ```
 
 ## Reference
