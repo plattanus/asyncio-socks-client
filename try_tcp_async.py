@@ -11,7 +11,7 @@ async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_p
         proxy_port=proxy_port,
         username="my_username",
         password="my_password",
-        rdns=False,
+        rdns=True,
     )
     await tcp_socks.settimeout(5)
     sock = await tcp_socks.connect(dest_host=target_host, dest_port=target_port)
@@ -36,7 +36,7 @@ async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_p
 
 
 async def main():
-    proxy_host = ""
+    proxy_host = "127.0.0.1"
     proxy_port = 1080
     target_host = "ip.sb"
     target_port = 80

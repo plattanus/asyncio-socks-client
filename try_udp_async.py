@@ -11,7 +11,7 @@ async def udp_client_through_socks(
         socks.SOCKS5,
         proxy_host,
         proxy_port,
-        rdns=True,
+        rdns=False,
         username="my_username",
         password="my_password",
     )
@@ -25,10 +25,10 @@ async def udp_client_through_socks(
 
 
 async def main():
-    proxy_host = ""
+    proxy_host = "127.0.0.1"
     proxy_port = 1080
-    target_host = ""
-    target_port = 6000
+    target_host = "127.0.0.1"
+    target_port = 8888
     message = "A"
 
     await udp_client_through_socks(

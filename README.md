@@ -12,15 +12,17 @@ The `socks-client` package provides a core proxy client functionality for Python
 
 **Install with pip if Python version 3.7.0 or higher is available.**
 
+```shell
+$ pip install socks-client
 ```
-pip install socks-client
-```
+
+pypi：https://pypi.org/project/socks-client/
 
 ## Usage
 
 **Async TCP Client**
 
-```
+```python
 import socks_client.tcp_async as socks
 async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
     tcp_socks = socks.socksocket(
@@ -48,7 +50,7 @@ async def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_p
 
 **Sync TCP Client**
 
-```
+```python
 import socks_client.tcp_sync as socks
 def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
     tcp_socks = socks.socksocket()
@@ -71,7 +73,7 @@ def tcp_client_through_socks(proxy_host, proxy_port, target_host, target_port):
 
 **Async UDP Client**
 
-```
+```python
 import socks_client.udp_async as socks
 async def udp_client_through_socks(
     proxy_host, proxy_port, target_host, target_port, message
@@ -93,7 +95,7 @@ async def udp_client_through_socks(
 
 **Sync UDP Client**
 
-```
+```python
 import socks_client.udp_sync as socks
 def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message):
     socks.setdefaultproxy(

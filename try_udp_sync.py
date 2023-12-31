@@ -8,7 +8,7 @@ def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, m
         socks.SOCKS5,
         proxy_host,
         proxy_port,
-        rdns=False,
+        rdns=True,
         username="my_username",
         password="my_password",
     )
@@ -22,10 +22,10 @@ def udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, m
 
 
 if __name__ == "__main__":
-    proxy_host = ""
+    proxy_host = "127.0.0.1"
     proxy_port = 1080
-    target_host = ""
-    target_port = 6000
+    target_host = "127.0.0.1"
+    target_port = 8888
     message = "A"
 
     udp_client_through_socks(proxy_host, proxy_port, target_host, target_port, message)
