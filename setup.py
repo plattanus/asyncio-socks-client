@@ -36,3 +36,10 @@ setup(
         "socks_client",
     ],
 )
+
+
+# python3 setup.py sdist bdist
+# twine upload dist/socks-client-*.tar.gz
+# input
+# __token__
+# API_token
