@@ -28,7 +28,7 @@ setup(
     # long_description_content_type="text/markdown",
     author="Plattanus",
     author_email="plattanus@outlook.com",
-    url="https://github.com/plattanus/socks-client.git",
+    url="https://github.com/plattanus/socks-client",
     license="MIT License",
     keywords=["socks", "socks5", "socks4", "proxy", "asyncio", "tcp", "udp"],
     install_requires=[],
