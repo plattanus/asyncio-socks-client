@@ -23,10 +23,7 @@ jobs:
           installer-parallel: true
 
       - name: Install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Install library
-        run: poetry install --no-interaction
+        run: pip install pytest yarl
 
       - name: Run tests
-        run: poetry run pytest
+        run: pytest
